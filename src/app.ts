@@ -16,7 +16,6 @@ import cors from 'cors'
 import { requireJwtMiddleware } from './jwt-simple/customMiddleware'
 import util from 'util'
 import { server } from 'typescript'
-const readFile = util.promisify(fs.readFile);
 
 export class App {
     app: https.Server | undefined;
@@ -62,12 +61,9 @@ export class App {
         this.express.use('/trabajador', TrabajadorRoutes);
     }
 
-    listen() {
-        var key = fs.readFileSync('/home/dh_efadbf/newCSR/private.key', 'utf8');
-        var cert = fs.readFileSync('/home/dh_efadbf/newCSR/file.csr', 'utf8');
-        this.app = https.createServer({ key: key, cert: cert }, this.express).listen(this.express.get('port'));
-        
-        
+    public async listen() {
+        await this.express.listen(this.express.get("port"));
+        console.log(`Servidor corriendo en el puerto ${this.express.get("port")}`);        
     }
 
 }
