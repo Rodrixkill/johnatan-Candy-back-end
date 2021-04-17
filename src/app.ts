@@ -5,11 +5,7 @@ import fs from 'fs'
 
 // Routes
 import IndexRoutes from './routes/index.routes'
-import PostRoutes from './routes/post.routes'
-import EmpresaRoutes from './routes/empresa.routes'
-import UsuarioRoutes from './routes/usuario.routes'
 import TrabajadorRoutes from './routes/trabajador.routes'
-import GestionRoutes from './routes/gestion.routes'
 import ContrasenaRoutes from './routes/contrasena.routes'
 import cors from 'cors'
 // middleware
@@ -47,17 +43,11 @@ export class App {
     }
 
     private routes() {
-        this.express.use('/posts', requireJwtMiddleware);
-        this.express.use('/empresa', requireJwtMiddleware);
         this.express.use('/usuario', requireJwtMiddleware);
-        this.express.use('/gestion', requireJwtMiddleware);
         this.express.use('/trabajador', requireJwtMiddleware);
         this.express.use(IndexRoutes);
-        this.express.use('/posts', PostRoutes);
+    
         this.express.use('/contrasena', ContrasenaRoutes);
-        this.express.use('/empresa', EmpresaRoutes);
-        this.express.use('/usuario', UsuarioRoutes);
-        this.express.use('/gestion', GestionRoutes);
         this.express.use('/trabajador', TrabajadorRoutes);
     }
 
