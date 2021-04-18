@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { encodeSession } from "../jwt-simple/webToken";
 import { connect } from '../database'
 import bcrypt from "bcryptjs";
-const SECRET_KEY_HERE="m&m-enterprise";
+const SECRET_KEY_HERE="jhonatanCandy";
 
 export async function indexWelcome(req: Request, res: Response): Promise<any> {
    var username = req.body.username;
@@ -13,19 +13,17 @@ export async function indexWelcome(req: Request, res: Response): Promise<any> {
 	if (username && password) {
       try {
          const conn = await connect();
-         const results: any = await conn.query('SELECT * FROM usuario WHERE usuario = ?', username);
+         const results: any = await conn.query('SELECT * FROM Usuario WHERE username = ?', username);
          console.log(results[0][0]);
          if(results[0].length > 0){
             
-            const validatePass= await validate(password,results[0][0].contrasena);
-            const ciUser: string=  results[0][0].ci;
+            const validatePass= await validate(password,results[0][0].password);
             console.log(validatePass);
             if(validatePass){
                const session = encodeSession(SECRET_KEY_HERE, {
-                  ci: ciUser,
                   username: username      
                });
-               return res.status(201).json([session,results[0][0].permisos,results[0][0].empresa]);
+               return res.status(201).json([session]);
             }
             else{
                return res.json('Contraseña incorrecta');
