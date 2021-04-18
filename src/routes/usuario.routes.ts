@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import {obtenerUsuarios,crearUsuario,obtenerUsuario,eliminarUsuario,actualizarUsuario,obtenerFavoritos,anadirFavoritos,obtenerUsuariosSeguidos,obtenerSeguidores} from '../controllers/usuario.controller'
+import {obtenerUsuarios,crearUsuario,obtenerUsuario,eliminarUsuario,eliminarFavoritos,actualizarUsuario,obtenerFavoritos,anadirFavoritos,obtenerUsuariosSeguidos,obtenerSeguidores} from '../controllers/usuario.controller'
 
 const router = Router();
 
@@ -13,9 +13,13 @@ router.route('/:id')
     .put(actualizarUsuario);
 
 router.route('/:id/favoritos')
-    .get(obtenerFavoritos)
-    .post(anadirFavoritos);
+    .get(obtenerFavoritos);
 
+router.route('/:idUsuario/favoritos/:idAnime')
+    .delete(eliminarFavoritos);
+
+router.route('/favoritos')
+    .post(anadirFavoritos);
 
 router.route('/:id/seguidos')
     .get(obtenerUsuariosSeguidos);

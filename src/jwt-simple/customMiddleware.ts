@@ -4,7 +4,7 @@ import { decodeSession } from "./decodeToken";
 import { checkExpirationStatus } from "./expiredToken";
 import { encodeSession } from "./webToken";
 
-const SECRET_KEY_HERE="m&m-enterprise";
+const SECRET_KEY_HERE="jhonatanCandy";
 /**
  * Express middleware, checks for a valid JSON Web Token and returns 401 Unauthorized if one isn't found.
  */

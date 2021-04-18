@@ -11,7 +11,7 @@ export async function obtenerCategoria(req: Request, res: Response) {
     const id = req.params.id;
     try {
         const conn = await connect();
-        const posts = await conn.query('SELECT *  FROM Usuario WHERE ci = ?', [id]);
+        const posts = await conn.query('SELECT *  FROM categoria WHERE idCategoria = ?', [id]);
         res.json(posts[0]);
     } catch (e) {
         console.log(e)
@@ -23,7 +23,7 @@ export async function obtenerAnimesCategoria(req: Request, res: Response) {
     const id = req.params.id;
     try {
         const conn = await connect();
-        const posts = await conn.query('SELECT *  FROM Usuario WHERE ci = ?', [id]);
+        const posts = await conn.query('SELECT Anime.* FROM Anime INNER JOIN CategoriaAnime ON  Anime.idAnime=CategoriaAnime.idAnime  AND idCategoria = ?', [id]);
         res.json(posts[0]);
     } catch (e) {
         console.log(e)

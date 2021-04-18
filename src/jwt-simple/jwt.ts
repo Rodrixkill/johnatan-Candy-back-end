@@ -1,6 +1,4 @@
-
 export interface Session {
-    ci: string;
     username: string;
     /**
      * Timestamp indicating when the session was created, in Unix milliseconds.

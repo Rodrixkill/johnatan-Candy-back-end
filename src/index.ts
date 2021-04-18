@@ -3,7 +3,7 @@ import { connect } from './database'
 
 async function main() {
     const app = new App(8443);
-    app.listen();
+    await app.listen();
 }
 
 main();

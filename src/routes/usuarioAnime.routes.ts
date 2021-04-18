@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import {obtenerLista,anadirALaLista,eliminarDeLaLista,cambiarDeLaLista,obtenerAnimePorEstado} from '../controllers/categoriaAnime.controller'
+import {obtenerLista,anadirALaLista,eliminarDeLaLista,cambiarDeLaLista,obtenerAnimePorEstado} from '../controllers/usuarioAnime.controller'
 
 const router = Router();
 
