@@ -1,12 +1,8 @@
 export interface Usuario {
-    ci: string;
-    fecha_nacimiento: Date;
+    idUsuario?: number; 
     nombre: string;
-    correo_electronico: string;
-    usuario: string;
-    contrasena: string;
-    tipo: string;
-    empresa: number;
-    permisos: "ADMIN_MM"|"GRAL";
-    activo: number;
+    username: string;
+    password: string;
+    correo: string;
+    fechaNacimiento: Date;
 }

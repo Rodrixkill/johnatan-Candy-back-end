@@ -7,6 +7,7 @@ import fs from 'fs'
 import IndexRoutes from './routes/index.routes'
 import TrabajadorRoutes from './routes/trabajador.routes'
 import ContrasenaRoutes from './routes/contrasena.routes'
+import UserRoutes from './routes/usuario.routes'
 import cors from 'cors'
 // middleware
 import { requireJwtMiddleware } from './jwt-simple/customMiddleware'
@@ -49,6 +50,7 @@ export class App {
     
         this.express.use('/contrasena', ContrasenaRoutes);
         this.express.use('/trabajador', TrabajadorRoutes);
+        this.express.use('/user', UserRoutes);
     }
 
     public async listen() {
