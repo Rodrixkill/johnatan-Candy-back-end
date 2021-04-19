@@ -14,7 +14,7 @@ router.route('/:id')
 router.route('/:id/respuestas')
     .get(obtenerRespuestas);
 
-router.route('/:idForo')
+router.route('/:idForo/foro')
     .get(obtenerComentarios)
 
 export default router;
