@@ -7,6 +7,9 @@ import fs from 'fs'
 import IndexRoutes from './routes/index.routes'
 import TrabajadorRoutes from './routes/trabajador.routes'
 import ContrasenaRoutes from './routes/contrasena.routes'
+import AnimeRoutes from './routes/anime.routes'
+import ForoRoutes from './routes/foro.routes'
+import ComentarioRoutes from './routes/comentario.routes'
 import UserRoutes from './routes/usuario.routes'
 import cors from 'cors'
 // middleware
@@ -51,6 +54,10 @@ export class App {
         this.express.use('/contrasena', ContrasenaRoutes);
         this.express.use('/trabajador', TrabajadorRoutes);
         this.express.use('/user', UserRoutes);
+
+        this.express.use('/anime', AnimeRoutes);
+        this.express.use('/foro', ForoRoutes);
+        this.express.use('/comentario', ComentarioRoutes);
     }
 
     public async listen() {
