@@ -5,7 +5,9 @@ export async function connect(): Promise<Pool> {
         host: 'localhost',
         user: 'root',
         password: 'pass',
-        database: 'prueba'
+        database: 'crunchylist'
     });
     return connection;
 }
+
+
