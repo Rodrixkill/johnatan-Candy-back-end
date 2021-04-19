@@ -12,6 +12,9 @@ import CategoriaRoutes from './routes/categoria.routes'
 import EstadoRoutes from './routes/estado.routes'
 import UsuarioAnimeRoutes from './routes/usuarioAnime.routes'
 
+import AnimeRoutes from './routes/anime.routes'
+import ForoRoutes from './routes/foro.routes'
+import ComentarioRoutes from './routes/comentario.routes'
 import cors from 'cors'
 // middleware
 import { requireJwtMiddleware } from './jwt-simple/customMiddleware'
@@ -61,6 +64,9 @@ export class App {
         this.express.use('/categoria', CategoriaRoutes);
         this.express.use('/estado', EstadoRoutes);
         this.express.use('/lista', UsuarioAnimeRoutes);
+        this.express.use('/anime', AnimeRoutes);
+        this.express.use('/foro', ForoRoutes);
+        this.express.use('/comentario', ComentarioRoutes);
     }
 
     public async listen() {
