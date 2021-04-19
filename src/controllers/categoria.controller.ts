@@ -23,7 +23,7 @@ export async function obtenerAnimesCategoria(req: Request, res: Response) {
     const id = req.params.id;
     try {
         const conn = await connect();
-        const posts = await conn.query('SELECT a.idAnime,a.nombre,a.sinopsis,a.nroEpisodios,a.estadoEmision,a.fechaEstreno,a.estudio,a.duracionMinutos,a.score,a.ranking,a.popularidad,a.nroFavoritos,a.image FROM Anime as a INNER JOIN CategoriaAnime ON  a.idAnime=CategoriaAnime.idAnime AND idCategoria = ?', [id]);
+        const posts = await conn.query('SELECT a.idAnime,a.nombre,a.sinopsis,a.nroEpisodios,a.estadoEmision,a.fechaEstreno,a.estudio,a.duracionMinutos,a.score,a.ranking,a.popularidad,a.nroFavoritos,a.image FROM anime as a INNER JOIN categoriaanime ON  a.idAnime=categoriaanime.idAnime AND idCategoria = ?', [id]);
         res.json(posts[0]);
     } catch (e) {
         console.log(e)

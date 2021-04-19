@@ -13,7 +13,7 @@ export async function indexWelcome(req: Request, res: Response): Promise<any> {
 	if (username && password) {
       try {
          const conn = await connect();
-         const results: any = await conn.query('SELECT * FROM Usuario WHERE username = ?', username);
+         const results: any = await conn.query('SELECT * FROM usuario WHERE username = ?', username);
          console.log(results[0][0]);
          if(results[0].length > 0){
             

@@ -9,7 +9,7 @@ export async function obtenerForos(req: Request, res: Response): Promise<Respons
     const idAnime = req.params.idAnime;
     try {
         const conn = await connect();
-        const posts = await conn.query('SELECT * FROM Foro where idAnime = ?', [idAnime]);
+        const posts = await conn.query('SELECT * FROM foro where idAnime = ?', [idAnime]);
         return res.json(posts[0]);
     }
     catch (e) {
@@ -22,7 +22,7 @@ export async function crearForo(req: Request, res: Response): Promise<Response |
     let newForo: Foro = req.body;
     try {
         const conn = await connect();
-        const posts = await conn.query('INSERT INTO Foro SET ? ', [newForo]);
+        const posts = await conn.query('INSERT INTO foro SET ? ', [newForo]);
         return res.json(posts[0]);
     }
     catch (e) {
@@ -36,7 +36,7 @@ export async function actualizarForo (req: Request, res: Response): Promise<Resp
     const updateForo: Foro = req.body;
     try {
         const conn = await connect();
-        const posts = await conn.query('UPDATE Foro SET ? WHERE idForo = ?', [updateForo, id]);
+        const posts = await conn.query('UPDATE foro SET ? WHERE idForo = ?', [updateForo, id]);
         return res.json(posts[0]);
     }
     catch (e) {
@@ -50,7 +50,7 @@ export async function eliminarForo (req: Request, res: Response): Promise<Respon
     const id = req.params.id;
     try {
         const conn = await connect();
-        const posts = await conn.query('DELETE FROM Foro WHERE idForo = ?', [id]);
+        const posts = await conn.query('DELETE FROM foro WHERE idForo = ?', [id]);
         return res.json(posts[0]);
     }
     catch (e) {
@@ -64,7 +64,7 @@ export async function obtenerForo(req: Request, res: Response): Promise<Response
     const id = req.params.id;
     try {
         const conn = await connect();
-        const posts = await conn.query('SELECT * FROM Foro where idForo = ?', [id]);
+        const posts = await conn.query('SELECT * FROM foro where idForo = ?', [id]);
         return res.json(posts[0]);
     }
     catch (e) {

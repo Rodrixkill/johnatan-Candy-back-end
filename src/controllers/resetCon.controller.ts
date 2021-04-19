@@ -12,7 +12,7 @@ export async function forgotPassword(req: Request, res: Response): Promise<any> 
 	if (email) {
       try {
          const conn = await connect();
-         const results: any = await conn.query('SELECT * FROM usuario WHERE correo_electronico = ?', email);
+         const results: any = await conn.query('SELECT * FROM usuario WHERE correo = ?', email);
          if(results[0].length > 0){
             const now = Date.now();     
             // En cuanto expira el link
@@ -36,7 +36,7 @@ export async function forgotPassword(req: Request, res: Response): Promise<any> 
 }
 
 export async function changePassword(req: Request, res: Response): Promise<any> {
-    var contrasena = req.body.contrasena;
+    var contrasena = req.body.password;
     var token= req.params.token;
     console.log(contrasena);
      if (contrasena) {
@@ -50,9 +50,9 @@ export async function changePassword(req: Request, res: Response): Promise<any> 
           console.log(obtained[1]);
           console.log(now);
           if(obtained[1]>now){
-            const results: any = await conn.query('SELECT * FROM usuario WHERE correo_electronico = ?', obtained[0]);
+            const results: any = await conn.query('SELECT * FROM usuario WHERE correo = ?', obtained[0]);
             if(results[0].length > 0){
-                const resultsUpdate: any = await conn.query('UPDATE usuario set contrasena = ? WHERE correo_electronico = ?', [contrasena, obtained[0]]);
+                const resultsUpdate: any = await conn.query('UPDATE usuario set password = ? WHERE correo = ?', [contrasena, obtained[0]]);
                 return res.json({
                     message: resultsUpdate
                 });

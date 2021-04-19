@@ -9,7 +9,7 @@ export async function obtenerComentarios(req: Request, res: Response): Promise<R
     const idForo = req.params.idForo;
     try {
         const conn = await connect();
-        const posts = await conn.query('SELECT * FROM Comentario where idForo = ?', [idForo]);
+        const posts = await conn.query('SELECT * FROM comentario where idForo = ?', [idForo]);
         return res.json(posts[0]);
     }
     catch (e) {
@@ -22,7 +22,7 @@ export async function crearComentario(req: Request, res: Response): Promise<Resp
     let newComentario: Comentario = req.body;
     try {
         const conn = await connect();
-        const posts = await conn.query('INSERT INTO Comentario SET ? ', [newComentario]);
+        const posts = await conn.query('INSERT INTO comentario SET ? ', [newComentario]);
         return res.json(posts[0]);
     }
     catch (e) {
@@ -36,7 +36,7 @@ export async function actualizarComentario (req: Request, res: Response): Promis
     const updateComentario: Comentario = req.body;
     try {
         const conn = await connect();
-        const posts = await conn.query('UPDATE Comentario SET ? WHERE idComentario = ?', [updateComentario, id]);
+        const posts = await conn.query('UPDATE comentario SET ? WHERE idComentario = ?', [updateComentario, id]);
         return res.json(posts[0]);
     }
     catch (e) {
@@ -50,7 +50,7 @@ export async function eliminarComentario (req: Request, res: Response): Promise<
     const id = req.params.id;
     try {
         const conn = await connect();
-        const posts = await conn.query('DELETE FROM Comentario WHERE idComentario = ?', [id]);
+        const posts = await conn.query('DELETE FROM comentario WHERE idComentario = ?', [id]);
         return res.json(posts[0]);
     }
     catch (e) {
@@ -64,7 +64,7 @@ export async function obtenerComentario(req: Request, res: Response): Promise<Re
     const id = req.params.id;
     try {
         const conn = await connect();
-        const posts = await conn.query('SELECT * FROM Comentario where idComentario = ?', [id]);
+        const posts = await conn.query('SELECT * FROM comentario where idComentario = ?', [id]);
         return res.json(posts[0]);
     }
     catch (e) {
@@ -77,7 +77,7 @@ export async function obtenerRespuestas(req: Request, res: Response): Promise<Re
     const id = req.params.id;
     try {
         const conn = await connect();
-        const posts = await conn.query('SELECT * FROM Comentario where idComentarioPadre = ?', [id]);
+        const posts = await conn.query('SELECT * FROM comentario where idComentarioPadre = ?', [id]);
         return res.json(posts[0]);
     }
     catch (e) {

@@ -11,7 +11,7 @@ const SECRET_KEY_HERE="jhonatanCandy";
 export async function obtenerUsuarios(req: Request, res: Response): Promise<Response | void> {
     try {
         const conn = await connect();
-        const posts = await conn.query('SELECT idUsuario,nombre,username,correo,fechaNacimiento FROM Usuario');
+        const posts = await conn.query('SELECT idUsuario,nombre,username,correo,fechaNacimiento FROM usuario');
         return res.json(posts[0]);
     }
     catch (e) {
@@ -25,7 +25,7 @@ export async function crearUsuario(req: Request, res: Response) {
     try {
         newUsuario.password = await encrypt(newUsuario.password);
         const conn = await connect();
-        const results = await conn.query('INSERT INTO Usuario SET ? ', [newUsuario]);
+        const results = await conn.query('INSERT INTO usuario SET ? ', [newUsuario]);
         res.json({
             message: results
         });
@@ -41,7 +41,7 @@ export async function obtenerUsuario(req: Request, res: Response) {
     const id = req.params.id;
     try {
         const conn = await connect();
-        const posts = await conn.query('SELECT idUsuario,nombre,username,correo,fechaNacimiento FROM Usuario WHERE idUsuario = ?', [id]);
+        const posts = await conn.query('SELECT idUsuario,nombre,username,correo,fechaNacimiento FROM usuario WHERE idUsuario = ?', [id]);
         return res.json(posts[0]);
     }
     catch (e) {
@@ -54,7 +54,7 @@ export async function eliminarUsuario(req: Request, res: Response) {
     const id = req.params.id;
     try {
         const conn = await connect();
-        const posts = await conn.query('DELETE FROM Usuario WHERE idUsuario = ?', [id]);
+        const posts = await conn.query('DELETE FROM usuario WHERE idUsuario = ?', [id]);
         res.json(posts[0]);
     } catch (e) {
         console.log(e)
@@ -66,7 +66,7 @@ export async function actualizarUsuario(req: Request, res: Response) {
     const updateUsuario: Usuario = req.body;
     try {
         const conn = await connect();
-        const results = await conn.query('UPDATE Usuario SET ? WHERE idUsuario = ?', [updateUsuario, id]);
+        const results = await conn.query('UPDATE usuario SET ? WHERE idUsuario = ?', [updateUsuario, id]);
         res.json({
             message: results
         });
@@ -80,7 +80,7 @@ export async function obtenerFavoritos(req: Request, res: Response) {
     const id = req.params.id;
     try {
         const conn = await connect();
-        const posts = await conn.query('SELECT u.idUsuario,a.idAnime,a.nombre,a.sinopsis,a.imagen FROM Usuario as u INNER JOIN Favorito as f ON u.idUsuario=f.idUsuario AND f.idUsuario = ? INNER JOIN Anime as a ON f.idAnime=a.idAnime', [id]);
+        const posts = await conn.query('SELECT u.idUsuario,a.idAnime,a.nombre,a.sinopsis,a.imagen FROM usuario as u INNER JOIN favorito as f ON u.idUsuario=f.idUsuario AND f.idUsuario = ? INNER JOIN anime as a ON f.idAnime=a.idAnime', [id]);
         res.json(posts[0]);
     } catch (e) {
         console.log(e)
@@ -91,7 +91,7 @@ export async function anadirFavoritos(req: Request, res: Response) {
     const favoritos = req.body;
     try {
         const conn = await connect();
-        const posts = await conn.query('INSERT INTO Favorito SET ?', [favoritos]);
+        const posts = await conn.query('INSERT INTO favorito SET ?', [favoritos]);
         res.json(posts[0]);
     } catch (e) {
         console.log(e)
@@ -103,7 +103,7 @@ export async function eliminarFavoritos(req: Request, res: Response) {
     const idAnime = req.params.idAnime;
     try {
         const conn = await connect();
-        const posts = await conn.query('DELETE FROM Favorito WHERE idUsuario=? AND idAnime=?', [idUsuario,idAnime]);
+        const posts = await conn.query('DELETE FROM favorito WHERE idUsuario=? AND idAnime=?', [idUsuario,idAnime]);
         res.json(posts[0]);
     } catch (e) {
         console.log(e)
@@ -114,7 +114,7 @@ export async function obtenerUsuariosSeguidos(req: Request, res: Response) {
     const id = req.params.id;
     try {
         const conn = await connect();
-        const posts = await conn.query('SELECT u.idUsuario,u.nombre,u.username FROM Usuario as u,Follow as f WHERE f.idSeguidor = ? AND f.idSeguido=u.idUsuario', [id]);
+        const posts = await conn.query('SELECT u.idUsuario,u.nombre,u.username FROM usuario as u,follow as f WHERE f.idSeguidor = ? AND f.idSeguido=u.idUsuario', [id]);
         res.json(posts[0]);
     } catch (e) {
         console.log(e)
@@ -126,7 +126,7 @@ export async function obtenerSeguidores(req: Request, res: Response) {
     const id = req.params.id;
     try {
         const conn = await connect();
-        const posts = await conn.query('SELECT u.idUsuario,u.nombre,u.username FROM Usuario as u,Follow as f WHERE f.idSeguido = ? AND f.idSeguidor=u.idUsuario', [id]);
+        const posts = await conn.query('SELECT u.idUsuario,u.nombre,u.username FROM usuario as u,follow as f WHERE f.idSeguido = ? AND f.idSeguidor=u.idUsuario', [id]);
         res.json(posts[0]);
     } catch (e) {
         console.log(e)
