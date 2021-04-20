@@ -267,7 +267,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Andres Mendez','elay','andres@gmail.com','password','1998-06-09'),(2,'Samuel Huanca','samuBot','samuel@gmail.com','password','1998-09-21'),(3,'Rodrigo Villarroel','rodrixKill','rodrigo@gmail.com','password','1998-12-30'),(4,'Joaquin Viscafe','jeyjey','joaquin@gmail.com','password','1998-03-12'),(5,'Mateo Altamirano','chocoThor','mateo@gmail.com','password','1998-04-21');
+INSERT INTO `usuario` VALUES (1,'Andres Mendez','elay','andres@gmail.com','$2a$10$8mBMMFXm49UnHhekRpDTCeztaU7p3WexCuI0C79vHSIx0PSIU2cnO','1998-06-09'),(2,'Samuel Huanca','samuBot','samuel@gmail.com','$2a$10$8mBMMFXm49UnHhekRpDTCeztaU7p3WexCuI0C79vHSIx0PSIU2cnO','1998-09-21'),(3,'Rodrigo Villarroel','rodrixKill','rodrigo@gmail.com','$2a$10$8mBMMFXm49UnHhekRpDTCeztaU7p3WexCuI0C79vHSIx0PSIU2cnO','1998-12-30'),(4,'Joaquin Viscafe','jeyjey','joaquin@gmail.com','$2a$10$8mBMMFXm49UnHhekRpDTCeztaU7p3WexCuI0C79vHSIx0PSIU2cnO','1998-03-12'),(5,'Mateo Altamirano','chocoThor','mateo@gmail.com','$2a$10$8mBMMFXm49UnHhekRpDTCeztaU7p3WexCuI0C79vHSIx0PSIU2cnO','1998-04-21');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -4,7 +4,7 @@ exports.requireJwtMiddleware = void 0;
 const decodeToken_1 = require("./decodeToken");
 const expiredToken_1 = require("./expiredToken");
 const webToken_1 = require("./webToken");
-const SECRET_KEY_HERE = "m&m-enterprise";
+const SECRET_KEY_HERE = "jhonatanCandy";
 /**
  * Express middleware, checks for a valid JSON Web Token and returns 401 Unauthorized if one isn't found.
  */

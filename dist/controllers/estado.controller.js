@@ -9,17 +9,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.connect = void 0;
-const promise_1 = require("mysql2/promise");
-function connect() {
+exports.obtenerEstados = void 0;
+// DB
+const database_1 = require("../database");
+function obtenerEstados(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const connection = yield promise_1.createPool({
-            host: 'localhost',
-            user: 'root',
-            password: 'pass',
-            database: 'crunchylist'
-        });
-        return connection;
+        try {
+            const conn = yield database_1.connect();
+            const posts = yield conn.query('SELECT idEstado,nombre FROM estado');
+            res.json(posts[0]);
+        }
+        catch (e) {
+            console.log(e);
+            return res.json(e);
+        }
     });
 }
-exports.connect = connect;
+exports.obtenerEstados = obtenerEstados;

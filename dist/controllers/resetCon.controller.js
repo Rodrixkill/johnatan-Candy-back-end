@@ -24,7 +24,7 @@ function forgotPassword(req, res) {
         if (email) {
             try {
                 const conn = yield database_1.connect();
-                const results = yield conn.query('SELECT * FROM usuario WHERE correo_electronico = ?', email);
+                const results = yield conn.query('SELECT * FROM usuario WHERE correo = ?', email);
                 if (results[0].length > 0) {
                     const now = Date.now();
                     // En cuanto expira el link
@@ -50,7 +50,7 @@ function forgotPassword(req, res) {
 exports.forgotPassword = forgotPassword;
 function changePassword(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        var contrasena = req.body.contrasena;
+        var contrasena = req.body.password;
         var token = req.params.token;
         console.log(contrasena);
         if (contrasena) {
@@ -64,9 +64,9 @@ function changePassword(req, res) {
                 console.log(obtained[1]);
                 console.log(now);
                 if (obtained[1] > now) {
-                    const results = yield conn.query('SELECT * FROM usuario WHERE correo_electronico = ?', obtained[0]);
+                    const results = yield conn.query('SELECT * FROM usuario WHERE correo = ?', obtained[0]);
                     if (results[0].length > 0) {
-                        const resultsUpdate = yield conn.query('UPDATE usuario set contrasena = ? WHERE correo_electronico = ?', [contrasena, obtained[0]]);
+                        const resultsUpdate = yield conn.query('UPDATE usuario set password = ? WHERE correo = ?', [contrasena, obtained[0]]);
                         return res.json({
                             message: resultsUpdate
                         });
