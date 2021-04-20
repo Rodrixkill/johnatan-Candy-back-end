@@ -59,7 +59,7 @@ DROP TABLE IF EXISTS `categoria`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categoria` (
-  `idCategoria` int NOT NULL,
+  `idCategoria` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(20) NOT NULL,
   PRIMARY KEY (`idCategoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -110,7 +110,7 @@ DROP TABLE IF EXISTS `comentario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comentario` (
-  `idComentario` int NOT NULL,
+  `idComentario` int NOT NULL AUTO_INCREMENT,
   `idForo` int DEFAULT NULL,
   `idComentarioPadre` int DEFAULT NULL,
   `idUsuario` int NOT NULL,
@@ -222,7 +222,7 @@ DROP TABLE IF EXISTS `foro`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `foro` (
-  `idForo` int NOT NULL,
+  `idForo` int NOT NULL AUTO_INCREMENT,
   `idAnime` int NOT NULL,
   `titulo` varchar(200) NOT NULL,
   `contenido` varchar(6000) NOT NULL,

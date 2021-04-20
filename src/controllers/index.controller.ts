@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { encodeSession } from "../jwt-simple/webToken";
 import { connect } from '../database'
 import bcrypt from "bcryptjs";
+import { Usuario } from '../interface/Usuario'
 const SECRET_KEY_HERE="jhonatanCandy";
 
 export async function indexWelcome(req: Request, res: Response): Promise<any> {
@@ -39,6 +40,22 @@ export async function indexWelcome(req: Request, res: Response): Promise<any> {
 		return res.json('Complete username and password');
 	}
    
+}
+
+export async function crearUsuario(req: Request, res: Response) {
+   let newUsuario: Usuario = req.body;
+   try {
+       newUsuario.password = await encrypt(newUsuario.password);
+       const conn = await connect();
+       const results = await conn.query('INSERT INTO usuario SET ? ', [newUsuario]);
+       console.log(results);
+       return res.json({
+           message: results
+       });
+   }
+   catch (e) {
+       return res.json(e);
+   }
 }
 
 async function encrypt(pass: string): Promise<string>{

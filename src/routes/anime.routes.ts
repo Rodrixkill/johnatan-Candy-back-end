@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import {obtenerAnimes, crearAnime, eliminarAnime, actualizarAnime, obtenerAnime, obtenerCategorias} from '../controllers/anime.controller'
+import {obtenerAnimes, crearAnime, eliminarAnime, actualizarAnime, obtenerAnime, obtenerCategorias,anadirCategoria,eliminarCategoria} from '../controllers/anime.controller'
 
 const router = Router();
 
@@ -13,6 +13,10 @@ router.route('/:id')
     .put(actualizarAnime);
 
 router.route('/:id/categorias')
-    .delete(obtenerCategorias);
+    .post(anadirCategoria)
+    .get(obtenerCategorias);
+
+router.route('/:id/categorias/:idCategoria')
+    .delete(eliminarCategoria);
 
 export default router;

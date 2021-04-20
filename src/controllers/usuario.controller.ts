@@ -26,7 +26,8 @@ export async function crearUsuario(req: Request, res: Response) {
         newUsuario.password = await encrypt(newUsuario.password);
         const conn = await connect();
         const results = await conn.query('INSERT INTO usuario SET ? ', [newUsuario]);
-        res.json({
+        console.log(results);
+        return res.json({
             message: results
         });
     }
@@ -65,6 +66,7 @@ export async function actualizarUsuario(req: Request, res: Response) {
     const id = req.params.id;
     const updateUsuario: Usuario = req.body;
     try {
+        updateUsuario.password = await encrypt(updateUsuario.password);
         const conn = await connect();
         const results = await conn.query('UPDATE usuario SET ? WHERE idUsuario = ?', [updateUsuario, id]);
         res.json({

@@ -84,3 +84,28 @@ export async function obtenerCategorias(req: Request, res: Response): Promise<Re
         return res.json(e);
     }
 }
+export async function anadirCategoria(req: Request, res: Response): Promise<Response | void> {
+    const categoriaanime = req.body;
+    try {
+        const conn = await connect();
+        const posts = await conn.query('INSERT INTO categoriaanime SET ?', [categoriaanime]);
+        return res.json(posts[0]);
+    }
+    catch (e) {
+        console.log(e)
+        return res.json(e);
+    }
+}
+export async function eliminarCategoria(req: Request, res: Response): Promise<Response | void> {
+    const id = req.params.id;
+    const idCategoria= req.params.idCategoria;
+    try {
+        const conn = await connect();
+        const posts = await conn.query('DELETE FROM categoriaanime where idAnime = ? AND idCategoria = ?', [id,idCategoria]);
+        return res.json(posts[0]);
+    }
+    catch (e) {
+        console.log(e)
+        return res.json(e);
+    }
+}
