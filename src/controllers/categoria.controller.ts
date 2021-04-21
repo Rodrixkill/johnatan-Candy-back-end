@@ -1,12 +1,20 @@
-import { Request, Response } from 'express'
+import { Request, Response } from "express";
 
 // DB
-import { connect } from '../database'
+import { connect } from "../database";
 // Interfaces
-import { Categoria } from '../interface/Categoria'
+import { Categoria } from "../interface/Categoria";
 
-
-
+export async function obtenerCategorias(req: Request, res: Response) {
+  try {
+    const conn = await connect();
+    const posts = await conn.query("SELECT idCategoria,nombre  FROM categoria");
+    res.json(posts[0]);
+  } catch (e) {
+    console.log(e);
+    return res.json(e);
+  }
+}
 export async function obtenerCategoria(req: Request, res: Response) {
     const id = req.params.id;
     try {
@@ -31,4 +39,5 @@ export async function obtenerAnimesCategoria(req: Request, res: Response) {
         console.log(e)
         return res.json(e);
     }
+
 }
