@@ -4,8 +4,12 @@ import https, { Server } from 'https'
 import fs from 'fs'
 
 // Routes
+import GetAnimeRoutes from './routes/getAnime.routes'
+import GetComentarioRoutes from './routes/getComentario.routes'
+import GetForoRoutes from './routes/getForo.routes'
+import GetUsuarioRoutes from './routes/getUsuario.routes'
+
 import IndexRoutes from './routes/index.routes'
-import TrabajadorRoutes from './routes/trabajador.routes'
 import ContrasenaRoutes from './routes/contrasena.routes'
 import UsuarioRoutes from './routes/usuario.routes'
 import CategoriaRoutes from './routes/categoria.routes'
@@ -52,14 +56,13 @@ export class App {
 
     private routes() {
         this.express.use('/usuario', requireJwtMiddleware);
-        this.express.use('/trabajador', requireJwtMiddleware);
-        this.express.use('/categoria', requireJwtMiddleware);
-        this.express.use('/estado', requireJwtMiddleware);
         this.express.use('/lista', requireJwtMiddleware);
+        this.express.use('/anime', requireJwtMiddleware);
+        this.express.use('/foro', requireJwtMiddleware);
+        this.express.use('/comentario', requireJwtMiddleware);
         this.express.use(IndexRoutes);
     
         this.express.use('/contrasena', ContrasenaRoutes);
-        this.express.use('/trabajador', TrabajadorRoutes);
         this.express.use('/usuario', UsuarioRoutes);
         this.express.use('/categoria', CategoriaRoutes);
         this.express.use('/estado', EstadoRoutes);
@@ -67,6 +70,10 @@ export class App {
         this.express.use('/anime', AnimeRoutes);
         this.express.use('/foro', ForoRoutes);
         this.express.use('/comentario', ComentarioRoutes);
+        this.express.use('/getAnime', GetAnimeRoutes);
+        this.express.use('/getForo', GetForoRoutes);
+        this.express.use('/getcomentario', GetComentarioRoutes);
+        this.express.use('/getUsuario', GetUsuarioRoutes);
     }
 
     public async listen() {
