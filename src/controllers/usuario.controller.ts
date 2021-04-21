@@ -12,6 +12,7 @@ export async function obtenerUsuarios(req: Request, res: Response): Promise<Resp
     try {
         const conn = await connect();
         const posts = await conn.query('SELECT idUsuario,nombre,username,correo,fechaNacimiento FROM usuario');
+        conn.end();
         return res.json(posts[0]);
     }
     catch (e) {
@@ -27,6 +28,7 @@ export async function crearUsuario(req: Request, res: Response) {
         const conn = await connect();
         const results = await conn.query('INSERT INTO usuario SET ? ', [newUsuario]);
         console.log(results);
+        conn.end();
         return res.json({
             message: results
         });
@@ -43,6 +45,7 @@ export async function obtenerUsuario(req: Request, res: Response) {
     try {
         const conn = await connect();
         const posts = await conn.query('SELECT idUsuario,nombre,username,correo,fechaNacimiento FROM usuario WHERE idUsuario = ?', [id]);
+        conn.end();
         return res.json(posts[0]);
     }
     catch (e) {
@@ -56,6 +59,7 @@ export async function eliminarUsuario(req: Request, res: Response) {
     try {
         const conn = await connect();
         const posts = await conn.query('DELETE FROM usuario WHERE idUsuario = ?', [id]);
+        conn.end();
         res.json(posts[0]);
     } catch (e) {
         console.log(e)
@@ -69,6 +73,7 @@ export async function actualizarUsuario(req: Request, res: Response) {
         updateUsuario.password = await encrypt(updateUsuario.password);
         const conn = await connect();
         const results = await conn.query('UPDATE usuario SET ? WHERE idUsuario = ?', [updateUsuario, id]);
+        conn.end();
         res.json({
             message: results
         });
@@ -83,6 +88,7 @@ export async function obtenerFavoritos(req: Request, res: Response) {
     try {
         const conn = await connect();
         const posts = await conn.query('SELECT u.idUsuario,a.idAnime,a.nombre,a.sinopsis,a.imagen FROM usuario as u INNER JOIN favorito as f ON u.idUsuario=f.idUsuario AND f.idUsuario = ? INNER JOIN anime as a ON f.idAnime=a.idAnime', [id]);
+        conn.end();
         res.json(posts[0]);
     } catch (e) {
         console.log(e)
@@ -94,6 +100,7 @@ export async function anadirFavoritos(req: Request, res: Response) {
     try {
         const conn = await connect();
         const posts = await conn.query('INSERT INTO favorito SET ?', [favoritos]);
+        conn.end();
         res.json(posts[0]);
     } catch (e) {
         console.log(e)
@@ -106,6 +113,7 @@ export async function eliminarFavoritos(req: Request, res: Response) {
     try {
         const conn = await connect();
         const posts = await conn.query('DELETE FROM favorito WHERE idUsuario=? AND idAnime=?', [idUsuario,idAnime]);
+        conn.end();
         res.json(posts[0]);
     } catch (e) {
         console.log(e)
@@ -117,6 +125,7 @@ export async function obtenerUsuariosSeguidos(req: Request, res: Response) {
     try {
         const conn = await connect();
         const posts = await conn.query('SELECT u.idUsuario,u.nombre,u.username FROM usuario as u,follow as f WHERE f.idSeguidor = ? AND f.idSeguido=u.idUsuario', [id]);
+        conn.end();
         res.json(posts[0]);
     } catch (e) {
         console.log(e)
@@ -129,6 +138,7 @@ export async function obtenerSeguidores(req: Request, res: Response) {
     try {
         const conn = await connect();
         const posts = await conn.query('SELECT u.idUsuario,u.nombre,u.username FROM usuario as u,follow as f WHERE f.idSeguido = ? AND f.idSeguidor=u.idUsuario', [id]);
+        conn.end();
         res.json(posts[0]);
     } catch (e) {
         console.log(e)

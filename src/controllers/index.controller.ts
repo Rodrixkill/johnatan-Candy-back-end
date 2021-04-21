@@ -24,12 +24,15 @@ export async function indexWelcome(req: Request, res: Response): Promise<any> {
                const session = encodeSession(SECRET_KEY_HERE, {
                   username: username      
                });
+               conn.end();
                return res.status(201).json([session]);
             }
             else{
+               conn.end();
                return res.json('Contraseña incorrecta');
             }     
          } else {
+            conn.end();
             return res.json('No existe el usuario');
          }
       }
@@ -49,6 +52,7 @@ export async function crearUsuario(req: Request, res: Response) {
        const conn = await connect();
        const results = await conn.query('INSERT INTO usuario SET ? ', [newUsuario]);
        console.log(results);
+       conn.end();
        return res.json({
            message: results
        });

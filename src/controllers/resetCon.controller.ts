@@ -20,7 +20,7 @@ export async function forgotPassword(req: Request, res: Response): Promise<any> 
             const expires = now + oneHourInMs;
             let token = results[0][0].email + "separarT"+ expires;
             let secretToken = await jwt.encode(token, secret);
-
+            conn.end();
             return res.status(200).json({token:secretToken});    
          } else {
             return res.json('No existe el email');
@@ -53,10 +53,12 @@ export async function changePassword(req: Request, res: Response): Promise<any> 
             const results: any = await conn.query('SELECT * FROM usuario WHERE correo = ?', obtained[0]);
             if(results[0].length > 0){
                 const resultsUpdate: any = await conn.query('UPDATE usuario set password = ? WHERE correo = ?', [contrasena, obtained[0]]);
+                conn.end();
                 return res.json({
                     message: resultsUpdate
                 });
             } else {
+                conn.end();
                 return res.json('No autorizado');
             }
 

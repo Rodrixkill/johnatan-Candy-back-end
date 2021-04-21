@@ -10,6 +10,7 @@ export async function obtenerComentarios(req: Request, res: Response): Promise<R
     try {
         const conn = await connect();
         const posts = await conn.query('SELECT * FROM comentario where idForo = ?', [idForo]);
+        conn.end();
         return res.json(posts[0]);
     }
     catch (e) {
@@ -23,6 +24,7 @@ export async function crearComentario(req: Request, res: Response): Promise<Resp
     try {
         const conn = await connect();
         const posts = await conn.query('INSERT INTO comentario SET ? ', [newComentario]);
+        conn.end();
         return res.json(posts[0]);
     }
     catch (e) {
@@ -37,6 +39,7 @@ export async function actualizarComentario (req: Request, res: Response): Promis
     try {
         const conn = await connect();
         const posts = await conn.query('UPDATE comentario SET ? WHERE idComentario = ?', [updateComentario, id]);
+        conn.end();
         return res.json(posts[0]);
     }
     catch (e) {
@@ -51,6 +54,7 @@ export async function eliminarComentario (req: Request, res: Response): Promise<
     try {
         const conn = await connect();
         const posts = await conn.query('DELETE FROM comentario WHERE idComentario = ?', [id]);
+        conn.end();
         return res.json(posts[0]);
     }
     catch (e) {
@@ -65,6 +69,7 @@ export async function obtenerComentario(req: Request, res: Response): Promise<Re
     try {
         const conn = await connect();
         const posts = await conn.query('SELECT * FROM comentario where idComentario = ?', [id]);
+        conn.end();
         return res.json(posts[0]);
     }
     catch (e) {
@@ -78,6 +83,7 @@ export async function obtenerRespuestas(req: Request, res: Response): Promise<Re
     try {
         const conn = await connect();
         const posts = await conn.query('SELECT * FROM comentario where idComentarioPadre = ?', [id]);
+        conn.end();
         return res.json(posts[0]);
     }
     catch (e) {
