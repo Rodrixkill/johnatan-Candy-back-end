@@ -88,7 +88,8 @@ CREATE TABLE `categoriaanime` (
   KEY `idAnime` (`idAnime`),
   KEY `idCategoria` (`idCategoria`),
   CONSTRAINT `categoriaanime_ibfk_1` FOREIGN KEY (`idAnime`) REFERENCES `anime` (`idAnime`),
-  CONSTRAINT `categoriaanime_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`)
+  CONSTRAINT `categoriaanime_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`),
+  PRIMARY KEY (`idAnime`, `idCategoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -172,7 +173,8 @@ CREATE TABLE `favorito` (
   KEY `idUsuario` (`idUsuario`),
   KEY `idAnime` (`idAnime`),
   CONSTRAINT `favorito_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`),
-  CONSTRAINT `favorito_ibfk_2` FOREIGN KEY (`idAnime`) REFERENCES `anime` (`idAnime`)
+  CONSTRAINT `favorito_ibfk_2` FOREIGN KEY (`idAnime`) REFERENCES `anime` (`idAnime`),
+  PRIMARY KEY (`idUsuario`, `idAnime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -289,7 +291,8 @@ CREATE TABLE `usuarioanime` (
   KEY `idEstado` (`idEstado`),
   CONSTRAINT `usuarioanime_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`),
   CONSTRAINT `usuarioanime_ibfk_2` FOREIGN KEY (`idAnime`) REFERENCES `anime` (`idAnime`),
-  CONSTRAINT `usuarioanime_ibfk_3` FOREIGN KEY (`idEstado`) REFERENCES `estado` (`idEstado`)
+  CONSTRAINT `usuarioanime_ibfk_3` FOREIGN KEY (`idEstado`) REFERENCES `estado` (`idEstado`),
+  PRIMARY KEY (`idUsuario`, `idAnime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
