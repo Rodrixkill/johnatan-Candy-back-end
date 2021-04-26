@@ -15,4 +15,19 @@
   <li>Una vez dentro corre los siguientes comandos:  DROP DATABASE IF EXISTS crunchylist; CREATE crunchylist; exit;</li>
   <li>En la linea de comandos navega hasta la carpeta johnatan-Candy-back-end</li> 
   <li>Ingresa el comando siguiente mysql -u DatabaseUser -p crunchylist < crunchylist.sql</li>
+  <li>La base de datos debería crearse exitosamente</li>
+</ul>
+<h3>Pasos para inicializar el back-end</h3>
+<ul>
+  <li>En la linea de comandos navega hasta la carpeta johnatan-Candy-back-end</li> 
+  <li>Ingresa el comando siguiente: cd src</li>
+  <li>Modificar el documento "database.ts" con tus credenciales de tu Mysql</li>
+  <li>{
+        host: 'localhost',
+        user: 'root',
+        password: 'pass',
+        database: 'crunchylist'
+    }</li>
+  <li>En la línea de comandos vuelve a la carpeta principal y ejecuta el siguiente comando: npm run dev</li>
+  <li>El servidor back end debería habilitarse en el puerto 8443</li>
 </ul>
