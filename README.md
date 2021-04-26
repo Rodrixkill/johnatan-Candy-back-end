@@ -20,7 +20,7 @@
 <h3>Pasos para inicializar el back-end</h3>
 <ul>
   <li>En la linea de comandos navega hasta la carpeta johnatan-Candy-back-end</li> 
-  <li>Ingresa el comando siguiente: cd src</li>
+  <li>Ingresa a la carpeta src: cd src</li>
   <li>Modificar el documento "database.ts" con tus credenciales de tu Mysql</li>
   <li>{
         host: 'localhost',
