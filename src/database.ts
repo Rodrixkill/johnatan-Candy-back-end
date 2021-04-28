@@ -10,4 +10,17 @@ export async function connect(): Promise<Pool> {
     return connection;
 }
 
+export async function executeSimpleQuery(query: string, params: Array<any>): Promise<any> {
+    try {
+        const conn = await connect();
+        const posts = await conn.query(query, params);
+        conn.end();
+        return posts[0];
+    }
+    catch (e) {
+        console.log(e)
+        return e;
+    }
+}
+
 

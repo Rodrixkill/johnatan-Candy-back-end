@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import {obtenerLista,anadirALaLista,eliminarDeLaLista,cambiarDeLaLista,obtenerAnimePorEstado} from '../controllers/usuarioAnime.controller'
+import {obtenerLista,anadirALaLista,eliminarDeLaLista,cambiarDeLaLista,obtenerAnimePorEstado,animeEnLista} from '../controllers/usuarioAnime.controller'
 
 const router = Router();
 
@@ -10,6 +10,9 @@ router.route('/:idUsuario')
 router.route('/:idUsuario/:idAnime')
     .delete(eliminarDeLaLista)
     .put(cambiarDeLaLista);
+
+router.route('/exists/:idUsuario/:idAnime')
+    .get(animeEnLista);
 
 router.route('/:idUsuario/estado/:idEstado')
     .get(obtenerAnimePorEstado);

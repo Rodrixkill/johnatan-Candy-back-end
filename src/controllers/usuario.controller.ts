@@ -1,169 +1,65 @@
 import { Request, Response } from "express";
 
 // DB
-import { connect } from "../database";
+import {connect, executeSimpleQuery} from "../database";
 // Interfaces
 import { Usuario } from "../interface/Usuario";
 import bcrypt from "bcryptjs";
 const SECRET_KEY_HERE = "jhonatanCandy";
 
-export async function obtenerUsuarios(
-  req: Request,
-  res: Response
-): Promise<Response | void> {
-  try {
-    const conn = await connect();
-    const posts = await conn.query(
-      "SELECT idUsuario,nombre,username,correo,fechaNacimiento FROM usuario"
-    );
-    conn.end();
-    return res.json(posts[0]);
-  } catch (e) {
-    console.log(e);
-    return res.json(e);
-  }
+export async function obtenerUsuarios(req: Request, res: Response): Promise<Response | void> {
+  let queryResult = await executeSimpleQuery('SELECT idUsuario,nombre,username,correo,fechaNacimiento FROM usuario', []);
+  return res.json(queryResult);
 }
 
 export async function crearUsuario(req: Request, res: Response) {
   let newUsuario: Usuario = req.body;
-  try {
-    newUsuario.password = await encrypt(newUsuario.password);
-    const conn = await connect();
-    const results = await conn.query("INSERT INTO usuario SET ? ", [
-      newUsuario,
-    ]);
-    console.log(results);
-    conn.end();
-    return res.json({
-      message: results,
-    });
-  } catch (e) {
-    return res.json(e);
-  }
+  newUsuario.password = await encrypt(newUsuario.password);
+  let queryResult = await executeSimpleQuery('INSERT INTO usuario SET ? ', [newUsuario]);
+  return res.json(queryResult);
 }
 
 export async function obtenerUsuario(req: Request, res: Response) {
-  const id = req.params.id;
-  try {
-    const conn = await connect();
-    const posts = await conn.query(
-      "SELECT idUsuario,nombre,username,correo,fechaNacimiento FROM usuario WHERE username = ?",
-      [id]
-    );
-    conn.end();
-    return res.json(posts[0]);
-  } catch (e) {
-    console.log(e);
-    return res.json(e);
-  }
+  let queryResult = await executeSimpleQuery('SELECT idUsuario,nombre,username,correo,fechaNacimiento FROM usuario WHERE username = ?', [req.params.id]);
+  return res.json(queryResult);
 }
 
 export async function eliminarUsuario(req: Request, res: Response) {
-  const id = req.params.id;
-  try {
-    const conn = await connect();
-    const posts = await conn.query("DELETE FROM usuario WHERE idUsuario = ?", [
-      id,
-    ]);
-    conn.end();
-    res.json(posts[0]);
-  } catch (e) {
-    console.log(e);
-    return res.json(e);
-  }
+  let queryResult = await executeSimpleQuery('DELETE FROM usuario WHERE idUsuario = ?', [req.params.id]);
+  return res.json(queryResult);
 }
+
 export async function actualizarUsuario(req: Request, res: Response) {
-  const id = req.params.id;
-  const updateUsuario: Usuario = req.body;
-  try {
-    updateUsuario.password = await encrypt(updateUsuario.password);
-    const conn = await connect();
-    const results = await conn.query(
-      "UPDATE usuario SET ? WHERE idUsuario = ?",
-      [updateUsuario, id]
-    );
-    conn.end();
-    res.json({
-      message: results,
-    });
-  } catch (e) {
-    console.log(e);
-    return res.json(e);
-  }
+  let queryResult = await executeSimpleQuery('UPDATE usuario SET ? WHERE idUsuario = ?', [req.body, req.params.id]);
+  return res.json(queryResult);
 }
+
 export async function obtenerFavoritos(req: Request, res: Response) {
-  const id = req.params.id;
-  try {
-    const conn = await connect();
-    const posts = await conn.query(
-      "SELECT u.idUsuario,a.idAnime,a.nombre,a.sinopsis,a.imagen FROM usuario as u INNER JOIN favorito as f ON u.idUsuario=f.idUsuario AND f.idUsuario = ? INNER JOIN anime as a ON f.idAnime=a.idAnime",
-      [id]
-    );
-    conn.end();
-    res.json(posts[0]);
-  } catch (e) {
-    console.log(e);
-    return res.json(e);
-  }
+  let query = 'SELECT u.idUsuario,a.idAnime,a.nombre,a.sinopsis,a.imagen FROM usuario as u INNER JOIN favorito as f ON u.idUsuario=f.idUsuario AND f.idUsuario = ? INNER JOIN anime as a ON f.idAnime=a.idAnime';
+  let queryResult = await executeSimpleQuery(query, [req.params.id]);
+  return res.json(queryResult);
 }
+
 export async function anadirFavoritos(req: Request, res: Response) {
-  const favoritos = req.body;
-  try {
-    const conn = await connect();
-    const posts = await conn.query("INSERT INTO favorito SET ?", [favoritos]);
-    conn.end();
-    res.json(posts[0]);
-  } catch (e) {
-    console.log(e);
-    return res.json(e);
-  }
+  let queryResult = await executeSimpleQuery('INSERT INTO favorito SET ?', [req.body]);
+  return res.json(queryResult);
 }
+
 export async function eliminarFavoritos(req: Request, res: Response) {
-  const idUsuario = req.params.idUsuario;
-  const idAnime = req.params.idAnime;
-  try {
-    const conn = await connect();
-    const posts = await conn.query(
-      "DELETE FROM favorito WHERE idUsuario=? AND idAnime=?",
-      [idUsuario, idAnime]
-    );
-    conn.end();
-    res.json(posts[0]);
-  } catch (e) {
-    console.log(e);
-    return res.json(e);
-  }
+  let queryResult = await executeSimpleQuery('DELETE FROM favorito WHERE idUsuario=? AND idAnime=?', [req.params.idUsuario, req.params.idAnime]);
+  return res.json(queryResult);
 }
+
 export async function obtenerUsuariosSeguidos(req: Request, res: Response) {
-  const id = req.params.id;
-  try {
-    const conn = await connect();
-    const posts = await conn.query(
-      "SELECT u.idUsuario,u.nombre,u.username FROM usuario as u,follow as f WHERE f.idSeguidor = ? AND f.idSeguido=u.idUsuario",
-      [id]
-    );
-    conn.end();
-    res.json(posts[0]);
-  } catch (e) {
-    console.log(e);
-    return res.json(e);
-  }
+  let query = 'SELECT u.idUsuario,u.nombre,u.username FROM usuario as u,follow as f WHERE f.idSeguidor = ? AND f.idSeguido=u.idUsuario';
+  let queryResult = await executeSimpleQuery(query, [req.params.id]);
+  return res.json(queryResult);
 }
 
 export async function obtenerSeguidores(req: Request, res: Response) {
-  const id = req.params.id;
-  try {
-    const conn = await connect();
-    const posts = await conn.query(
-      "SELECT u.idUsuario,u.nombre,u.username FROM usuario as u,follow as f WHERE f.idSeguido = ? AND f.idSeguidor=u.idUsuario",
-      [id]
-    );
-    conn.end();
-    res.json(posts[0]);
-  } catch (e) {
-    console.log(e);
-    return res.json(e);
-  }
+  let query = 'SELECT u.idUsuario,u.nombre,u.username FROM usuario as u,follow as f WHERE f.idSeguido = ? AND f.idSeguidor=u.idUsuario';
+  let queryResult = await executeSimpleQuery(query, [req.params.id]);
+  return res.json(queryResult);
 }
 
 async function encrypt(pass: string): Promise<string> {
