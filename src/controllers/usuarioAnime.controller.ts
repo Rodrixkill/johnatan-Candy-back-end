@@ -35,6 +35,6 @@ export async function obtenerAnimePorEstado(req: Request, res: Response) {
 }
 
 export async function animeEnLista(req: Request, res: Response) {
-    let queryResult = await executeSimpleQuery('SELECT idUsuario,idAnime,idEstado,porcentajeVisto,fechaInicioVer FROM usuarioanime WHERE idUsuario= 1 and idAnime= 1;', [req.params.idUsuario, req.params.idAnime]);
+    let queryResult = await executeSimpleQuery('SELECT idUsuario,idAnime,idEstado,porcentajeVisto,fechaInicioVer FROM usuarioanime WHERE idUsuario= ? and idAnime= ?;', [req.params.idUsuario, req.params.idAnime]);
     return res.json(queryResult);
 }
