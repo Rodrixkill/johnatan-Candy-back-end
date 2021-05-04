@@ -4,7 +4,8 @@ import {obtenerUsuarios,crearUsuario,obtenerUsuario} from '../controllers/usuari
 const router = Router();
 
 router.route('/')
-    .get(obtenerUsuarios)
     .post(crearUsuario);
+router.route('/:search')
+    .get(obtenerUsuarios);
     
 export default router;
