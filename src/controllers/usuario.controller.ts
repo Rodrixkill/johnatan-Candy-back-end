@@ -8,7 +8,7 @@ import bcrypt from "bcryptjs";
 const SECRET_KEY_HERE = "jhonatanCandy";
 
 export async function obtenerUsuarios(req: Request, res: Response): Promise<Response | void> {
-  let queryResult = await executeSimpleQuery('SELECT idUsuario,nombre,username,correo,fechaNacimiento FROM usuario', []);
+  let queryResult = await executeSimpleQuery('SELECT idUsuario,nombre,username FROM usuario', []);
   return res.json(queryResult);
 }
 
