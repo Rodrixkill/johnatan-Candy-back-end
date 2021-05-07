@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import {obtenerAnimes,  obtenerAnime, obtenerCategorias} from '../controllers/anime.controller'
+import {obtenerAnimes, obtenerAnime, obtenerCategorias, buscarAnime} from '../controllers/anime.controller'
 
 const router = Router();
 
@@ -11,6 +11,9 @@ router.route('/:id')
 
 router.route('/:id/categorias')
     .get(obtenerCategorias);
+
+router.route('/:search')
+  .get(buscarAnime);
 
 
 

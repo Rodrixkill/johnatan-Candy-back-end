@@ -10,6 +10,12 @@ export async function obtenerAnimes(req: Request, res: Response): Promise<Respon
     return res.json(queryResult);
 }
 
+export async function buscarAnime(req: Request, res: Response): Promise<Response | void> {
+    let searchVal: string= '%'+req.params.search+'%';
+    let queryResult = await executeSimpleQuery('select idAnime, nombre, imagen, sinopsis from anime WHERE nombre LIKE ? ;', [searchVal]);
+    return res.json(queryResult);
+}
+
 export async function crearAnime(req: Request, res: Response): Promise<Response | void> {
     let queryResult = await executeSimpleQuery('INSERT INTO anime SET ? ', [req.body]);
     return res.json(queryResult);
