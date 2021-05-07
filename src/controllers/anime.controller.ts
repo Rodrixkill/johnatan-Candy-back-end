@@ -12,7 +12,7 @@ export async function obtenerAnimes(req: Request, res: Response): Promise<Respon
 
 export async function buscarAnime(req: Request, res: Response): Promise<Response | void> {
     let searchVal: string= '%'+req.params.search+'%';
-    let queryResult = await executeSimpleQuery('select idAnime, nombre, imagen, sinopsis from anime WHERE nombre LIKE ? ;', [searchVal]);
+    let queryResult = await executeSimpleQuery('select * from anime WHERE nombre LIKE ? ;', [searchVal]);
     return res.json(queryResult);
 }
 
