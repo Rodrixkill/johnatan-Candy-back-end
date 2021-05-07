@@ -39,7 +39,7 @@ CREATE TABLE `anime` (
   `imagen` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`idAnime`),
   UNIQUE KEY `nombre` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +63,7 @@ CREATE TABLE `categoria` (
   `idCategoria` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(20) NOT NULL,
   PRIMARY KEY (`idCategoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +91,7 @@ CREATE TABLE `categoriaanime` (
   CONSTRAINT `categoriaanime_ibfk_1` FOREIGN KEY (`idAnime`) REFERENCES `anime` (`idAnime`),
   CONSTRAINT `categoriaanime_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`),
   PRIMARY KEY (`idAnime`, `idCategoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,7 +124,7 @@ CREATE TABLE `comentario` (
   CONSTRAINT `comentario_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`),
   CONSTRAINT `comentario_ibfk_2` FOREIGN KEY (`idForo`) REFERENCES `foro` (`idForo`),
   CONSTRAINT `comentario_ibfk_3` FOREIGN KEY (`idComentarioPadre`) REFERENCES `comentario` (`idComentario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,7 +148,7 @@ CREATE TABLE `estado` (
   `idEstado` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`idEstado`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,7 +176,7 @@ CREATE TABLE `favorito` (
   CONSTRAINT `favorito_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`),
   CONSTRAINT `favorito_ibfk_2` FOREIGN KEY (`idAnime`) REFERENCES `anime` (`idAnime`),
   PRIMARY KEY (`idUsuario`, `idAnime`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,7 +204,7 @@ CREATE TABLE `follow` (
   KEY `idSeguido` (`idSeguido`),
   CONSTRAINT `follow_ibfk_1` FOREIGN KEY (`idSeguidor`) REFERENCES `usuario` (`idUsuario`),
   CONSTRAINT `follow_ibfk_2` FOREIGN KEY (`idSeguido`) REFERENCES `usuario` (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,7 +232,7 @@ CREATE TABLE `foro` (
   PRIMARY KEY (`idForo`),
   KEY `idAnime` (`idAnime`),
   CONSTRAINT `foro_ibfk_1` FOREIGN KEY (`idAnime`) REFERENCES `anime` (`idAnime`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -261,7 +261,7 @@ CREATE TABLE `usuario` (
   `fechaNacimiento` date NOT NULL,
   PRIMARY KEY (`idUsuario`),
   UNIQUE KEY `username` (`username`,`correo`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -294,7 +294,7 @@ CREATE TABLE `usuarioanime` (
   CONSTRAINT `usuarioanime_ibfk_2` FOREIGN KEY (`idAnime`) REFERENCES `anime` (`idAnime`),
   CONSTRAINT `usuarioanime_ibfk_3` FOREIGN KEY (`idEstado`) REFERENCES `estado` (`idEstado`),
   PRIMARY KEY (`idUsuario`, `idAnime`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

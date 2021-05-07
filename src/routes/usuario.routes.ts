@@ -1,11 +1,10 @@
 import { Router } from 'express'
-import {eliminarUsuario,eliminarFavoritos,actualizarUsuario,obtenerFavoritos,anadirFavoritos,obtenerUsuariosSeguidos,obtenerSeguidores} from '../controllers/usuario.controller'
+import {obtenerUsuario,eliminarUsuario,eliminarFavoritos,actualizarUsuario,obtenerFavoritos,anadirFavoritos,obtenerUsuariosSeguidos,obtenerSeguidores} from '../controllers/usuario.controller'
 
 const router = Router();
 
-
-
-router.route('/:id')    
+router.route('/:id')
+    .get(obtenerUsuario)    
     .delete(eliminarUsuario)
     .put(actualizarUsuario);
 

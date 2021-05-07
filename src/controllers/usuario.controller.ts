@@ -8,15 +8,21 @@ import bcrypt from "bcryptjs";
 const SECRET_KEY_HERE = "jhonatanCandy";
 
 export async function obtenerUsuarios(req: Request, res: Response): Promise<Response | void> {
-  let queryResult = await executeSimpleQuery('SELECT idUsuario,nombre,username,correo,fechaNacimiento FROM usuario', []);
+  let searchVal: string= '%'+req.params.search+'%';
+  let queryResult = await executeSimpleQuery('select nombre,username from usuario WHERE username LIKE ? ;', [searchVal]);
   return res.json(queryResult);
 }
 
 export async function crearUsuario(req: Request, res: Response) {
   let newUsuario: Usuario = req.body;
-  newUsuario.password = await encrypt(newUsuario.password);
-  let queryResult = await executeSimpleQuery('INSERT INTO usuario SET ? ', [newUsuario]);
-  return res.json(queryResult);
+  let exists = await executeSimpleQuery('SELECT username FROM usuario WHERE username = ? ', [newUsuario.username]);
+  if(exists.length<1){
+    newUsuario.password = await encrypt(newUsuario.password);
+    let queryResult = await executeSimpleQuery('INSERT INTO usuario SET ? ', [newUsuario]);
+    return res.json(queryResult);
+  }else{
+    return res.json('Usuario ya existe');
+  }
 }
 
 export async function obtenerUsuario(req: Request, res: Response) {

@@ -19,6 +19,7 @@
   <li>En la linea de comandos navega hasta la carpeta johnatan-Candy-back-end</li> 
   <li>Ingresa el comando siguiente mysql -u DatabaseUser -p crunchylist < crunchylist.sql</li>
   <li>La base de datos debería crearse exitosamente</li>
+  <li>Ingresa a la base de datos y ingresa los siguientes comandos: ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'; FLUSH PRIVILEGES;</li>
 </ul>
 <h3>Pasos para inicializar el back-end</h3>
 <ul>
