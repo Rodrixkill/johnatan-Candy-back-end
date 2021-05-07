@@ -11,7 +11,7 @@ export async function obtenerAnimes(req: Request, res: Response): Promise<Respon
 }
 
 export async function buscarAnime(req: Request, res: Response): Promise<Response | void> {
-    let searchVal: string= '%'+req.params.search+'%';
+    let searchVal: string= '%'+(req.params.search || '')+'%';
     let queryResult = await executeSimpleQuery('select * from anime WHERE nombre LIKE ? ;', [searchVal]);
     return res.json(queryResult);
 }

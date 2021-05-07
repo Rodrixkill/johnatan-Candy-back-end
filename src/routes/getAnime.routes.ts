@@ -12,7 +12,7 @@ router.route('/:id')
 router.route('/:id/categorias')
     .get(obtenerCategorias);
 
-router.route('/:search')
+router.route('/find/:search')
   .get(buscarAnime);
 
 
