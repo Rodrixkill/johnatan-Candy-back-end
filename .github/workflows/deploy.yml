@@ -27,4 +27,5 @@ jobs:
     - name: install firebase
       run: npm i firebase-tools -g  
     - name: deploy
+      run: firebase use crunchylist
       run: firebase deploy --token ${{ secrets.GCLOUD_TOKEN }}
