@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "crunchylist-b9cf2"
+    "default": "crunchylist-b9cf2",
+    "crunchylist": "crunchylist-b9cf2"
   }
 }

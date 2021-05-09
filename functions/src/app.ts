@@ -21,6 +21,7 @@ import ComentarioRoutes from './routes/comentario.routes'
 import cors from 'cors'
 // middleware
 import { requireJwtMiddleware } from './jwt-simple/customMiddleware'
+//import * as functions from "firebase-functions";
 
 export class App {
     app: https.Server | undefined;
@@ -71,11 +72,14 @@ export class App {
         this.express.use('/getForo', GetForoRoutes);
         this.express.use('/getcomentario', GetComentarioRoutes);
         this.express.use('/getUsuario', GetUsuarioRoutes);
+        
+        
     }
 
     public async listen() {
         await this.express.listen(this.express.get("port"));
-        console.log(`Servidor corriendo en el puerto ${this.express.get("port")}`);        
+        console.log(`Servidor corriendo en el puerto ${this.express.get("port")}`);  
+        //exports.app= await functions.https.onRequest(this.express);    
     }
 
 }

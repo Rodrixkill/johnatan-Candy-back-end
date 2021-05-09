@@ -32,10 +32,10 @@
     "nodemailer": "^6.4.18",
     "nodemon": "^1.19.4",
     "ts-node": "^9.1.1",
-    "typescript": "^4.1.3"
+    "typescript": "4.2.4"
   },
   "devDependencies": {
-    "typescript": "^3.8.0",
+    "typescript": "4.2.4",
     "firebase-functions-test": "^0.2.0"
   },
   "private": true
