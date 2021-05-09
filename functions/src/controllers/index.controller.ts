@@ -6,7 +6,7 @@ import { Usuario } from '../interface/Usuario'
 const SECRET_KEY_HERE="jhonatanCandy";
 
 export async function test(req: Request, res: Response):Promise<any>{
-   res.send("Funciona el pipeline")
+   res.send("Funciona el pipeline editado")
 }
 
 export async function indexWelcome(req: Request, res: Response): Promise<any> {
