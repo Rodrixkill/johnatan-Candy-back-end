@@ -16,7 +16,7 @@ export async function obtenerUsuarios(req: Request, res: Response): Promise<Resp
 export async function crearUsuario(req: Request, res: Response) {
   let newUsuario: Usuario = req.body;
   let exists = await executeSimpleQuery('SELECT username FROM usuario WHERE username = ? ', [newUsuario.username]);
-  if(exists.length<1){
+  if(exists.data.length<1){
     newUsuario.password = await encrypt(newUsuario.password);
     let queryResult = await executeSimpleQuery('INSERT INTO usuario SET ? ', [newUsuario]);
     return simpleResponse(queryResult, res);
