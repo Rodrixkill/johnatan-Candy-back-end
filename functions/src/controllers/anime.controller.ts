@@ -41,7 +41,7 @@ export async function obtenerAnime(req: Request, res: Response): Promise<Respons
     if (queryResult.error) {
         return res.status(500).json(`Error en el servidor`)
     } else if (queryResult.data.length == 0) {
-        return res.status(404).json(`No se encontro un anime con el id: [${req.params.id}]`)
+        return res.status(400).json(`No se encontro un anime con el id: [${req.params.id}]`)
     } else {
         return res.status(200).json(queryResult.data);
     }
