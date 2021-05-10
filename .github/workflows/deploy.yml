@@ -24,8 +24,7 @@ jobs:
     - name: install libraries
       run: npm install
       working-directory: ${{env.working-directory}}
-    - name: install firebase
-      run: npm i firebase-tools -g
+
   deploy:
     name: Deploy
     needs: build
@@ -35,5 +34,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@main
+      - name: install firebase
+        run: npm i firebase-tools -g
       - name: deploy
         run: firebase deploy --only functions --project crunchylist  --token ${{ secrets.GCLOUD_TOKEN }}
