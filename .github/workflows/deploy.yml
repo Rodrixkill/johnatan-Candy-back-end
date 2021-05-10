@@ -35,6 +35,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@main
       - name: install firebase
-        run: npm i firebase-tools -g
+        run: sudo npm i firebase-tools -g
       - name: deploy
-        run: firebase deploy --only functions --project crunchylist  --token ${{ secrets.GCLOUD_TOKEN }}
+        run: sudo firebase deploy --only functions --project crunchylist  --token ${{ secrets.GCLOUD_TOKEN }}
