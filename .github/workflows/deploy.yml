@@ -8,7 +8,7 @@ on:
     branches: [ deploy ]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     env:
       working-directory: ./functions
@@ -24,42 +24,10 @@ jobs:
       - name: install libraries
         run: npm install
         working-directory: ${{env.working-directory}}
-  tests:
-    needs: build
-    runs-on: ubuntu-latest
-    env:
-      working-directory: ./functions
-    strategy:
-      matrix:
-        node-version: [12.x]
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: install ts/node
-      run: npm install -g ts-node
-    - name: install mocha
-      run: npm i mocha -g
-    - name: Run tests
-      run: npm run test
-      working-directory: ${{env.working-directory}}
-  deploy:
-    needs: tests
-    runs-on: ubuntu-latest
-    env:
-      working-directory: ./functions
-    strategy:
-      matrix:
-        node-version: [12.x]
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: install firebase
-      run: npm i firebase-tools -g
-    - name: deploy
-      run: firebase deploy --project crunchylist  --token ${{ secrets.GCLOUD_TOKEN }}
+      - name: Run tests
+        run: npm run test
+        working-directory: ${{env.working-directory}}
+      - name: install firebase
+        run: npm i firebase-tools -g
+      - name: deploy
+        run: firebase deploy --project crunchylist  --token ${{ secrets.GCLOUD_TOKEN }}
