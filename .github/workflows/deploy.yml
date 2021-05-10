@@ -3,9 +3,9 @@ name: Deploy to Google
 # Run this workflow every time a new commit pushed to your repository
 on:
   push:
-    branches: [ deploy ]
+    branches: [ master ]
   pull_request:
-    branches: [ deploy ]
+    branches: [ master ]
 
 jobs:
   deploy:
