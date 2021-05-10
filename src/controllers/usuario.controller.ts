@@ -78,3 +78,13 @@ async function validate(pass: string, sql: string): Promise<boolean> {
   console.log(sql);
   return await bcrypt.compare(pass, sql);
 }
+
+export async function eliminarFollow(req: Request, res: Response) {
+  let queryResult = await executeSimpleQuery('DELETE FROM follow WHERE idSeguidor=? AND idSeguido=?', [req.params.id, req.params.idS]);
+  return res.json(queryResult);
+}
+
+export async function addFollow(req: Request, res: Response) {
+  let queryResult = await executeSimpleQuery('INSERT INTO follow SET ?', [req.body]);
+  return res.json(queryResult);
+}
