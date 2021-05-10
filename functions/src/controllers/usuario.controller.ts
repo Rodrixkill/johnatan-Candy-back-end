@@ -74,3 +74,12 @@ async function encrypt(pass: string): Promise<string> {
   return await bcrypt.hash(pass, salt);
 }
 
+export async function eliminarFollow(req: Request, res: Response) {
+  let queryResult = await executeSimpleQuery('DELETE FROM follow WHERE idSeguidor=? AND idSeguido=?', [req.params.id, req.params.idS]);
+  return simpleResponse(queryResult,res);
+}
+
+export async function addFollow(req: Request, res: Response) {
+  let queryResult = await executeSimpleQuery('INSERT INTO follow SET ?', [req.body]);
+  return simpleResponse(queryResult,res);
+}

@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import {obtenerUsuario,eliminarUsuario,eliminarFavoritos,actualizarUsuario,obtenerFavoritos,anadirFavoritos,obtenerUsuariosSeguidos,obtenerSeguidores} from '../controllers/usuario.controller'
+import {eliminarFollow,addFollow,obtenerUsuario,eliminarUsuario,eliminarFavoritos,actualizarUsuario,obtenerFavoritos,anadirFavoritos,obtenerUsuariosSeguidos,obtenerSeguidores} from '../controllers/usuario.controller'
 
 const router = Router();
 
@@ -22,6 +22,10 @@ router.route('/:id/seguidos')
 
 router.route('/:id/seguidores')
     .get(obtenerSeguidores);
+
+router.route('/:id/:idS')
+    .delete(eliminarFollow)
+    .post(addFollow);
 
 
 export default router;
