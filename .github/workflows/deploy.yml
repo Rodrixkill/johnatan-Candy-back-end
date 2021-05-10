@@ -32,8 +32,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: ./functions
-    - name: Checkout repository
-        uses: actions/checkout@main
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@main
       - name: deploy
         run: firebase deploy --only functions --project crunchylist  --token ${{ secrets.GCLOUD_TOKEN }}
