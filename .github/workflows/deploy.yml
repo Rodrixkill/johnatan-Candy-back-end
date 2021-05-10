@@ -4,17 +4,17 @@ name: Deploy to Google
 on:
   push:
     branches: [ deploy ]
+  pull_request:
+    branches: [ deploy ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
       working-directory: ./functions
-
     strategy:
       matrix:
         node-version: [12.x]
-
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -26,5 +26,14 @@ jobs:
       working-directory: ${{env.working-directory}}
     - name: install firebase
       run: npm i firebase-tools -g
-    - name: deploy
-      run: firebase deploy --project crunchylist  --token ${{ secrets.GCLOUD_TOKEN }}
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./functions
+    - name: Checkout repository
+        uses: actions/checkout@main
+    steps:
+      - name: deploy
+        run: firebase deploy --only functions --project crunchylist  --token ${{ secrets.GCLOUD_TOKEN }}
