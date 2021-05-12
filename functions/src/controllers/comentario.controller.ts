@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
 // DB
-import {executeSimpleQuery} from '../database'
+import {executeSimpleQuery} from '../query'
 import {simpleResponse} from "../utils";
 // Interfaces
 

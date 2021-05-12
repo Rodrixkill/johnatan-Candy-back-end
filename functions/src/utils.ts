@@ -1,4 +1,4 @@
-import {DBResponse} from "./database";
+import {DBResponse} from "./query";
 import { Response } from 'express'
 
 export function simpleResponse(dbResponse: DBResponse, res: Response) {
