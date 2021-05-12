@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 // DB
-import {executeSimpleQuery} from "../database";
+import {executeSimpleQuery} from "../query";
 import {simpleResponse} from "../utils";
 // Interfaces
 import { Usuario } from "../interface/Usuario";
@@ -21,8 +21,7 @@ export async function crearUsuario(req: Request, res: Response) {
     let queryResult = await executeSimpleQuery('INSERT INTO usuario SET ? ', [newUsuario]);
     return simpleResponse(queryResult, res);
   }else{
-    res.status(400);
-    return res.json('Usuario ya existe');
+    return res.status(409).json('Usuario ya existe');
   }
 }
 

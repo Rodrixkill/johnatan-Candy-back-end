@@ -1,24 +1,28 @@
 import { obtenerAnime } from '../controllers/anime.controller';
-const expressRequestMock = require('express-request-mock');
-const chai = require('chai');
-const expect = chai.expect;
-const sinon = require('sinon');
-import * as db from '../database';
+import  expressRequestMock from 'express-request-mock';
+import {expect} from 'chai';
+import sinon from 'sinon';
+import * as query from '../query';
 
-describe('GET /getAnime/:id', function() {
+describe('Obtener descripcion de un anime', function() {
+  let stub: sinon.SinonStub;
+
+  beforeEach(function () {
+    stub = sinon.stub(query, 'executeSimpleQuery')
+  })
+
+  afterEach(function () {
+    stub.restore();
+  })
   it('Returns 400 if not a provided a number as id', async function () {
     const options = {
       params: {
         id: 'hola'
       }
     }
-    let stub = sinon.stub(db, 'executeSimpleQuery').returns([]);
+    stub.returns([]);
     const { res } = await expressRequestMock(obtenerAnime, options)
-
-    chai.expect(res.statusCode).to.equal(400);
-
-    stub.restore();
-
+    expect(res.statusCode).to.equal(400);
   });
 
   it('Returns 404 if anime does not exist', async function () {
@@ -27,10 +31,9 @@ describe('GET /getAnime/:id', function() {
         id: '1'
       }
     }
-    let stub = sinon.stub(db, 'executeSimpleQuery').returns({data: [], error: false});
+    stub.returns({data: [], error: false});
     const { res } = await expressRequestMock(obtenerAnime, options)
     expect(res.statusCode).to.equal(404);
-    stub.restore();
   });
 
   it('Returns 500 if error exist', async function () {
@@ -39,10 +42,9 @@ describe('GET /getAnime/:id', function() {
         id: '1'
       }
     }
-    let stub = sinon.stub(db, 'executeSimpleQuery').returns({data: [], error: true});
+    stub.returns({data: [], error: true});
     const { res } = await expressRequestMock(obtenerAnime, options)
     expect(res.statusCode).to.equal(500);
-    stub.restore();
   });
 
   it('Returns 200 if everything is ok', async function () {
@@ -51,10 +53,9 @@ describe('GET /getAnime/:id', function() {
         id: '1'
       }
     }
-    let stub = sinon.stub(db, 'executeSimpleQuery').returns({data: [{id: 1, nombre: 'Death Note', episodios: 54}], error: false});
+    stub.returns({data: [{id: 1, nombre: 'Death Note', episodios: 54}], error: false});
     const { res } = await expressRequestMock(obtenerAnime, options)
     expect(res.statusCode).to.equal(200);
-    stub.restore();
   });
 
 });

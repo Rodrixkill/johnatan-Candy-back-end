@@ -15,28 +15,3 @@ export async function connect(): Promise<Pool> {
     });
     return connection;
 }
-
-export interface DBResponse {
-    data: any;
-    error: true
-}
-
-export async function executeSimpleQuery(query: string, params: Array<any>): Promise<any> {
-    try {
-        const conn = await connect();
-        const posts = await conn.query(query, params);
-        conn.end();
-        return {
-            data: posts[0],
-            error: false
-        };
-    }
-    catch (e) {
-        return {
-            data: e,
-            error: true
-        };
-    }
-}
-
-
