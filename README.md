@@ -35,3 +35,5 @@
   <li>En la línea de comandos vuelve a la carpeta principal y ejecuta el siguiente comando: npm run dev</li>
   <li>El servidor back end debería habilitarse en el puerto 8443</li>
 </ul>
+
+#TestProfeCI/CD
